@@ -15,6 +15,16 @@
 @property (nonatomic, strong) SGCalendarTitleView *titleView;
 @property (nonatomic, strong) SGCalendarControlView *dateControlView;
 
+/**
+ 控件起始类型
+ */
+@property (nonatomic, assign) SGCalendarStartType calendarStartType;
+
+/**
+ 当前选中的下标: 0 -- 日; 1 -- 月; 2 -- 年; 3 -- 总
+ */
+@property (nonatomic, assign) NSUInteger selectIndex;
+
 @end
 
 @implementation SGCalendarTopView
@@ -53,6 +63,16 @@
 
 #pragma mark - view
 - (void)createView {
+    // TODO: 测试代码
+    self.calendarStartType = CalendarStartMonth;
+    self.selectIndex = 2;
+    
+    self.calendarStartType = !self.calendarStartType ? CalendarStartDay : self.calendarStartType;
+    NSMutableArray *itemTitles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"日", @"日"),NSLocalizedString(@"月", @"月"), NSLocalizedString(@"年", @"年"), NSLocalizedString(@"总", @"总")]];
+    for (int i = 0 ; i < self.calendarStartType; i ++) {
+        [itemTitles removeObjectAtIndex:0];
+    }
+    
     [self addSubview:self.titleView];
     self.titleView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.titleView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
@@ -62,8 +82,15 @@
     
     self.titleView.selectedColor = [UIColor blueColor];
     self.titleView.noSlectedColor = [UIColor blackColor];
-    self.titleView.titleArray = @[@"日", @"月", @"年", @"总"];
-    self.titleView.currentIndex = 0;
+    self.titleView.titleArray = itemTitles;
+    NSInteger index = self.selectIndex - self.calendarStartType;
+    if (index < 0) {
+        index = 0;
+    }
+    if (index > (itemTitles.count - 1)) {
+        index = itemTitles.count - 1;
+    }
+    self.titleView.currentIndex = index;
     
     [self addSubview:self.dateControlView];
     self.dateControlView.translatesAutoresizingMaskIntoConstraints = NO;

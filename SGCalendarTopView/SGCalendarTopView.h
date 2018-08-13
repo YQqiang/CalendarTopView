@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    CalendarStartDay = 0,       // 日 -- 月 -- 年 -- 总
+    CalendarStartMonth,         // 月 -- 年 -- 总
+    CalendarStartYear,          // 年 -- 总
+    CalendarStartTotal,         // 总
+} SGCalendarStartType;
+
 @interface SGCalendarTopView : UIView
 
 @end
