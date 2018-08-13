@@ -15,6 +15,9 @@
 		2F49F5B3212110E200BB2B0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F5B2212110E200BB2B0A /* main.m */; };
 		2F49F5BD212110E300BB2B0A /* CalendarTopViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F5BC212110E300BB2B0A /* CalendarTopViewTests.m */; };
 		2F49F5C8212110E300BB2B0A /* CalendarTopViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F5C7212110E300BB2B0A /* CalendarTopViewUITests.m */; };
+		2F49F5D82121113100BB2B0A /* SGCalendarTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F5D72121113100BB2B0A /* SGCalendarTitleView.m */; };
+		2F49F5DB2121114300BB2B0A /* SGCalendarTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F5DA2121114300BB2B0A /* SGCalendarTopView.m */; };
+		2F49F6172121AA5600BB2B0A /* SGCalendarControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F6162121AA5600BB2B0A /* SGCalendarControlView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,12 @@
 		2F49F5C3212110E300BB2B0A /* CalendarTopViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalendarTopViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F49F5C7212110E300BB2B0A /* CalendarTopViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarTopViewUITests.m; sourceTree = "<group>"; };
 		2F49F5C9212110E300BB2B0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2F49F5D62121113100BB2B0A /* SGCalendarTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGCalendarTitleView.h; sourceTree = "<group>"; };
+		2F49F5D72121113100BB2B0A /* SGCalendarTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SGCalendarTitleView.m; sourceTree = "<group>"; };
+		2F49F5D92121114300BB2B0A /* SGCalendarTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGCalendarTopView.h; sourceTree = "<group>"; };
+		2F49F5DA2121114300BB2B0A /* SGCalendarTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SGCalendarTopView.m; sourceTree = "<group>"; };
+		2F49F6152121AA5600BB2B0A /* SGCalendarControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGCalendarControlView.h; sourceTree = "<group>"; };
+		2F49F6162121AA5600BB2B0A /* SGCalendarControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SGCalendarControlView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +90,7 @@
 		2F49F597212110E100BB2B0A = {
 			isa = PBXGroup;
 			children = (
+				2F49F5D5212110F100BB2B0A /* SGCalendarTopView */,
 				2F49F5A2212110E100BB2B0A /* CalendarTopView */,
 				2F49F5BB212110E300BB2B0A /* CalendarTopViewTests */,
 				2F49F5C6212110E300BB2B0A /* CalendarTopViewUITests */,
@@ -130,6 +140,19 @@
 				2F49F5C9212110E300BB2B0A /* Info.plist */,
 			);
 			path = CalendarTopViewUITests;
+			sourceTree = "<group>";
+		};
+		2F49F5D5212110F100BB2B0A /* SGCalendarTopView */ = {
+			isa = PBXGroup;
+			children = (
+				2F49F5D62121113100BB2B0A /* SGCalendarTitleView.h */,
+				2F49F5D72121113100BB2B0A /* SGCalendarTitleView.m */,
+				2F49F6152121AA5600BB2B0A /* SGCalendarControlView.h */,
+				2F49F6162121AA5600BB2B0A /* SGCalendarControlView.m */,
+				2F49F5D92121114300BB2B0A /* SGCalendarTopView.h */,
+				2F49F5DA2121114300BB2B0A /* SGCalendarTopView.m */,
+			);
+			path = SGCalendarTopView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +285,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F49F6172121AA5600BB2B0A /* SGCalendarControlView.m in Sources */,
 				2F49F5A8212110E100BB2B0A /* ViewController.m in Sources */,
+				2F49F5DB2121114300BB2B0A /* SGCalendarTopView.m in Sources */,
+				2F49F5D82121113100BB2B0A /* SGCalendarTitleView.m in Sources */,
 				2F49F5B3212110E200BB2B0A /* main.m in Sources */,
 				2F49F5A5212110E100BB2B0A /* AppDelegate.m in Sources */,
 			);

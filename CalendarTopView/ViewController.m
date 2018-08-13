@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SGCalendarTopView.h"
 
 @interface ViewController ()
 
@@ -16,7 +17,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    SGCalendarTopView *calendarView = [[SGCalendarTopView alloc] init];
+    [self.view addSubview:calendarView];
+    calendarView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    calendarView.translatesAutoresizingMaskIntoConstraints = NO;
+    [calendarView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:22].active = YES;
+    [calendarView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
+    [calendarView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
 }
 
 
