@@ -37,7 +37,8 @@
 #pragma mark - lazy
 - (UIButton *)previousButton {
     if (!_previousButton) {
-        _previousButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        _previousButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_previousButton setTitle:@"◀️" forState:UIControlStateNormal];
         [_previousButton addTarget:self action:@selector(previousButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _previousButton;
@@ -55,7 +56,8 @@
 
 - (UIButton *)nextButton {
     if (!_nextButton) {
-        _nextButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        _nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_nextButton setTitle:@"▶️" forState:UIControlStateNormal];
         [_nextButton addTarget:self action:@selector(nextButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _nextButton;

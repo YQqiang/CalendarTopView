@@ -187,14 +187,14 @@
     NSString *minYear = [fmt stringFromDate:self.dateControlView.minDate];
     
     if (self.selectIndex == 0) {
-        self.dateControlView.nextButton.enabled = (([maxYear floatValue] > [selectYear floatValue]) || ([maxYear floatValue] >= [selectYear floatValue] && [maxMonth floatValue] > [selectMonth floatValue]) || ([maxYear floatValue] >= [selectYear floatValue] && [maxMonth floatValue] >= [selectMonth floatValue] && [maxDay floatValue] > [selectDay floatValue]));
-        self.dateControlView.previousButton.enabled = (([selectYear floatValue] > [minYear floatValue]) || ([selectYear floatValue] >= [minYear floatValue] && [selectMonth floatValue] > [minMonth floatValue])|| ([selectYear floatValue] >= [minYear floatValue] && [selectMonth floatValue] >= [minMonth floatValue] && [selectDay floatValue] > [minDay floatValue]));
+        self.dateControlView.nextButton.hidden = !(([maxYear floatValue] > [selectYear floatValue]) || ([maxYear floatValue] >= [selectYear floatValue] && [maxMonth floatValue] > [selectMonth floatValue]) || ([maxYear floatValue] >= [selectYear floatValue] && [maxMonth floatValue] >= [selectMonth floatValue] && [maxDay floatValue] > [selectDay floatValue]));
+        self.dateControlView.previousButton.hidden = !(([selectYear floatValue] > [minYear floatValue]) || ([selectYear floatValue] >= [minYear floatValue] && [selectMonth floatValue] > [minMonth floatValue])|| ([selectYear floatValue] >= [minYear floatValue] && [selectMonth floatValue] >= [minMonth floatValue] && [selectDay floatValue] > [minDay floatValue]));
     }else if (self.selectIndex == 1) {
-        self.dateControlView.nextButton.enabled = (([maxYear floatValue] > [selectYear floatValue]) || ([maxYear floatValue] >= [selectYear floatValue] && [maxMonth floatValue] > [selectMonth floatValue]));
-        self.dateControlView.previousButton.enabled = (([selectYear floatValue] > [minYear floatValue]) || ([selectYear floatValue] >= [minYear floatValue] && [selectMonth floatValue] > [minMonth floatValue] ));
+        self.dateControlView.nextButton.hidden = !(([maxYear floatValue] > [selectYear floatValue]) || ([maxYear floatValue] >= [selectYear floatValue] && [maxMonth floatValue] > [selectMonth floatValue]));
+        self.dateControlView.previousButton.hidden = !(([selectYear floatValue] > [minYear floatValue]) || ([selectYear floatValue] >= [minYear floatValue] && [selectMonth floatValue] > [minMonth floatValue] ));
     }else if (self.selectIndex == 2) {
-        self.dateControlView.nextButton.enabled = ([maxYear floatValue] > [selectYear floatValue]);
-        self.dateControlView.previousButton.enabled = ([selectYear floatValue] > [minYear floatValue]);
+        self.dateControlView.nextButton.hidden = !([maxYear floatValue] > [selectYear floatValue]);
+        self.dateControlView.previousButton.hidden = !([selectYear floatValue] > [minYear floatValue]);
     }
 }
 
