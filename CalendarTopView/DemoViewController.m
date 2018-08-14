@@ -20,7 +20,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     SGCalendarTopView *calendarView = [[SGCalendarTopView alloc] initWithCalendarStartType:CalendarStartDay selectIndex:0];
     [self.view addSubview:calendarView];
-    calendarView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     calendarView.translatesAutoresizingMaskIntoConstraints = NO;
     [calendarView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:0].active = YES;
     [calendarView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SGCalendarTitleView.h"
+#import "SGCalendarControlView.h"
 
 typedef enum : NSUInteger {
     CalendarStartDay = 0,       // 日 -- 月 -- 年 -- 总
@@ -21,6 +23,9 @@ typedef enum : NSUInteger {
  回调函数: selectIndex 标题下标; selectDate 选中日期; title 显示的日期文本
  */
 @property (nonatomic, copy) void (^dateDidChange)(NSInteger selectIndex, NSDate *selectDate, NSString *title);
+
+@property (nonatomic, strong, readonly) SGCalendarTitleView *titleView;
+@property (nonatomic, strong, readonly) SGCalendarControlView *dateControlView;
 
 - (instancetype)initWithCalendarStartType:(SGCalendarStartType)type selectIndex:(NSInteger)index;
 

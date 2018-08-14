@@ -7,13 +7,15 @@
 //
 
 #import "SGCalendarTopView.h"
-#import "SGCalendarTitleView.h"
-#import "SGCalendarControlView.h"
+
+static const CGFloat TitleViewHeight_ = 44;
+static const CGFloat DateControlViewHeight_ = 44;
 
 @interface SGCalendarTopView ()<SGCalendarTitleViewDelegate, SGCalendarControlViewDelegate>
 
 @property (nonatomic, strong) SGCalendarTitleView *titleView;
 @property (nonatomic, strong) SGCalendarControlView *dateControlView;
+@property (nonatomic, strong) UIView *bottomLine;
 
 /**
  控件起始类型
@@ -41,8 +43,7 @@
 
 - (SGCalendarTitleView *)titleView {
     if (!_titleView) {
-        _titleView = [[SGCalendarTitleView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44)];
-        _titleView.backgroundColor = [UIColor redColor];
+        _titleView = [[SGCalendarTitleView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, TitleViewHeight_)];
         _titleView.delegate = self;
     }
     return _titleView;
@@ -55,6 +56,14 @@
         _dateControlView.controlDelegate = self;
     }
     return _dateControlView;
+}
+
+- (UIView *)bottomLine {
+    if (!_bottomLine) {
+        _bottomLine = [[UIView alloc] init];
+        _bottomLine.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    }
+    return _bottomLine;
 }
 
 
@@ -103,7 +112,7 @@
     [self.titleView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [self.titleView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [self.titleView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
-    self.titleViewHeightConstraint = [self.titleView.heightAnchor constraintEqualToConstant:44];
+    self.titleViewHeightConstraint = [self.titleView.heightAnchor constraintEqualToConstant:TitleViewHeight_];
     self.titleViewHeightConstraint.active = YES;
     self.titleView.selectedColor = [UIColor blueColor];
     self.titleView.noSlectedColor = [UIColor blackColor];
@@ -123,10 +132,17 @@
     [self.dateControlView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [self.dateControlView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
     [self.dateControlView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    self.controlViewHeightConstraint = [self.dateControlView.heightAnchor constraintEqualToConstant:44];
+    self.controlViewHeightConstraint = [self.dateControlView.heightAnchor constraintEqualToConstant:DateControlViewHeight_];
     self.controlViewHeightConstraint.active = YES;
-    [self updateSelectDateRangeWithTimeZone:@"GMT+9"];
     
+    [self addSubview:self.bottomLine];
+    self.bottomLine.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.bottomLine.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [self.bottomLine.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    [self.bottomLine.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+    [self.bottomLine.heightAnchor constraintEqualToConstant:(2 / [UIScreen mainScreen].scale)].active = YES;
+    
+    [self updateSelectDateRangeWithTimeZone:@"GMT+9"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(timeZoneDidChange) name:NSSystemTimeZoneDidChangeNotification object:nil];
 }
 
@@ -259,7 +275,7 @@
  */
 - (void)showTitleView:(BOOL)show animated:(BOOL)animated {
     if (show) {
-        self.titleViewHeightConstraint.constant = 44;
+        self.titleViewHeightConstraint.constant = TitleViewHeight_;
         self.titleView.hidden = NO;
     } else {
         self.titleViewHeightConstraint.constant = 0;
@@ -280,7 +296,7 @@
  */
 - (void)showDateControlView:(BOOL)show animated:(BOOL)animated {
     if (show) {
-        self.controlViewHeightConstraint.constant = 44;
+        self.controlViewHeightConstraint.constant = DateControlViewHeight_;
         self.dateControlView.hidden = NO;
     } else {
         self.controlViewHeightConstraint.constant = 0;
