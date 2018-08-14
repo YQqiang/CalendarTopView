@@ -84,6 +84,11 @@
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSystemTimeZoneDidChangeNotification object:nil];
+    NSLog(@"%s", __func__);
+}
+
 #pragma mark - view
 - (void)createView {
     self.calendarStartType = !self.calendarStartType ? CalendarStartDay : self.calendarStartType;
@@ -120,9 +125,15 @@
     self.controlViewHeightConstraint = [self.dateControlView.heightAnchor constraintEqualToConstant:44];
     self.controlViewHeightConstraint.active = YES;
     [self updateSelectDateRangeWithTimeZone:@"GMT+9"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(timeZoneDidChange) name:NSSystemTimeZoneDidChangeNotification object:nil];
 }
 
 #pragma mark - action
+
+- (void)timeZoneDidChange {
+    [self updateSelectDateRangeWithTimeZone:self.currentTimeZone];
+}
 
 /**
  更新日历控件的日期选择范围

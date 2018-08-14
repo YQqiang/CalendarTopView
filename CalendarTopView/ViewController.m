@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "SGCalendarTopView.h"
+#import "DemoViewController.h"
 
 @interface ViewController ()
 
@@ -19,20 +19,14 @@
     [super viewDidLoad];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    SGCalendarTopView *calendarView = [[SGCalendarTopView alloc] initWithCalendarStartType:CalendarStartDay selectIndex:3];
-    [self.view addSubview:calendarView];
-    calendarView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    calendarView.translatesAutoresizingMaskIntoConstraints = NO;
-    [calendarView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:22].active = YES;
-    [calendarView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
-    [calendarView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    DemoViewController *demoVC = [[DemoViewController alloc] init];
+    [self.navigationController pushViewController:demoVC animated:YES];
 }
 
 

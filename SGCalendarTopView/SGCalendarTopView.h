@@ -19,4 +19,6 @@ typedef enum : NSUInteger {
 
 - (instancetype)initWithCalendarStartType:(SGCalendarStartType)type selectIndex:(NSInteger)index;
 
+- (void)updateSelectDateRangeWithTimeZone:(NSString *)timeZone;
+
 @end

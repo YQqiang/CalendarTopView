@@ -60,6 +60,10 @@
     [self createView];
 }
 
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+}
+
 #pragma mark - view
 - (void)createView {
     [self loadDataAndView];

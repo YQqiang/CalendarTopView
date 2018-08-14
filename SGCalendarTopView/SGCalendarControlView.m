@@ -92,6 +92,7 @@
 - (void)dealloc {
     [self.datePicker removeFromSuperview];
     self.datePicker = nil;
+    NSLog(@"%s", __func__);
 }
 
 #pragma mark - view
