@@ -25,6 +25,10 @@
     [calendarView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:0].active = YES;
     [calendarView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
     [calendarView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
+    
+    [calendarView setDateDidChange:^(NSInteger selectIndex, NSDate *selectDate, NSString *title) {
+        NSLog(@"--- %zd --- %@ --- %@ ---", selectIndex, selectDate, title);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

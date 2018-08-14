@@ -241,6 +241,9 @@
     }
     NSString *value = [dateFormatter stringFromDate:self.dateControlView.selectDate];
     [self.dateControlView.dateButton setTitle:value forState:UIControlStateNormal];
+    if (self.dateDidChange) {
+        self.dateDidChange(self.selectIndex, self.dateControlView.selectDate, value);
+    }
 }
 
 - (void)updateControlViewHeight {

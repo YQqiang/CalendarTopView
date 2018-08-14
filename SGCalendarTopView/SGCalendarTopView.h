@@ -17,6 +17,11 @@ typedef enum : NSUInteger {
 
 @interface SGCalendarTopView : UIView
 
+/**
+ 回调函数: selectIndex 标题下标; selectDate 选中日期; title 显示的日期文本
+ */
+@property (nonatomic, copy) void (^dateDidChange)(NSInteger selectIndex, NSDate *selectDate, NSString *title);
+
 - (instancetype)initWithCalendarStartType:(SGCalendarStartType)type selectIndex:(NSInteger)index;
 
 - (void)updateSelectDateRangeWithTimeZone:(NSString *)timeZone;
