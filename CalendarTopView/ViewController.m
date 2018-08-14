@@ -17,7 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     SGCalendarTopView *calendarView = [[SGCalendarTopView alloc] init];
     [self.view addSubview:calendarView];
     calendarView.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -26,7 +29,6 @@
     [calendarView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
     [calendarView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

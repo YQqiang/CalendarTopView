@@ -18,6 +18,8 @@
 		2F49F5D82121113100BB2B0A /* SGCalendarTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F5D72121113100BB2B0A /* SGCalendarTitleView.m */; };
 		2F49F5DB2121114300BB2B0A /* SGCalendarTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F5DA2121114300BB2B0A /* SGCalendarTopView.m */; };
 		2F49F6172121AA5600BB2B0A /* SGCalendarControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F6162121AA5600BB2B0A /* SGCalendarControlView.m */; };
+		2F49F61D2121B62100BB2B0A /* HooDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F61B2121B62100BB2B0A /* HooDatePicker.m */; };
+		2F49F61E2121B62100BB2B0A /* NSDate+HooDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F61C2121B62100BB2B0A /* NSDate+HooDatePicker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,10 @@
 		2F49F5DA2121114300BB2B0A /* SGCalendarTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SGCalendarTopView.m; sourceTree = "<group>"; };
 		2F49F6152121AA5600BB2B0A /* SGCalendarControlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGCalendarControlView.h; sourceTree = "<group>"; };
 		2F49F6162121AA5600BB2B0A /* SGCalendarControlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SGCalendarControlView.m; sourceTree = "<group>"; };
+		2F49F6192121B62100BB2B0A /* HooDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HooDatePicker.h; sourceTree = "<group>"; };
+		2F49F61A2121B62100BB2B0A /* NSDate+HooDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HooDatePicker.h"; sourceTree = "<group>"; };
+		2F49F61B2121B62100BB2B0A /* HooDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HooDatePicker.m; sourceTree = "<group>"; };
+		2F49F61C2121B62100BB2B0A /* NSDate+HooDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HooDatePicker.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,7 @@
 		2F49F597212110E100BB2B0A = {
 			isa = PBXGroup;
 			children = (
+				2F49F6182121B62100BB2B0A /* HooDatePicker */,
 				2F49F5D5212110F100BB2B0A /* SGCalendarTopView */,
 				2F49F5A2212110E100BB2B0A /* CalendarTopView */,
 				2F49F5BB212110E300BB2B0A /* CalendarTopViewTests */,
@@ -153,6 +160,17 @@
 				2F49F5DA2121114300BB2B0A /* SGCalendarTopView.m */,
 			);
 			path = SGCalendarTopView;
+			sourceTree = "<group>";
+		};
+		2F49F6182121B62100BB2B0A /* HooDatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				2F49F6192121B62100BB2B0A /* HooDatePicker.h */,
+				2F49F61A2121B62100BB2B0A /* NSDate+HooDatePicker.h */,
+				2F49F61B2121B62100BB2B0A /* HooDatePicker.m */,
+				2F49F61C2121B62100BB2B0A /* NSDate+HooDatePicker.m */,
+			);
+			path = HooDatePicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +307,8 @@
 				2F49F5A8212110E100BB2B0A /* ViewController.m in Sources */,
 				2F49F5DB2121114300BB2B0A /* SGCalendarTopView.m in Sources */,
 				2F49F5D82121113100BB2B0A /* SGCalendarTitleView.m in Sources */,
+				2F49F61D2121B62100BB2B0A /* HooDatePicker.m in Sources */,
+				2F49F61E2121B62100BB2B0A /* NSDate+HooDatePicker.m in Sources */,
 				2F49F5B3212110E200BB2B0A /* main.m in Sources */,
 				2F49F5A5212110E100BB2B0A /* AppDelegate.m in Sources */,
 			);

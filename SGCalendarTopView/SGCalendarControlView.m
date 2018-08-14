@@ -8,7 +8,7 @@
 
 #import "SGCalendarControlView.h"
 
-@interface SGCalendarControlView ()
+@interface SGCalendarControlView ()<HooDatePickerDelegate>
 
 /**
  向前
@@ -25,6 +25,11 @@
  */
 @property (nonatomic, strong) UIButton *nextButton;
 
+/**
+ 日期选择
+ */
+@property (nonatomic, strong) HooDatePicker *datePicker;
+
 @end
 
 @implementation SGCalendarControlView
@@ -33,13 +38,17 @@
 - (UIButton *)previousButton {
     if (!_previousButton) {
         _previousButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        [_previousButton addTarget:self action:@selector(previousButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _previousButton;
 }
 
 - (UIButton *)dateButton {
     if (!_dateButton) {
-        _dateButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        _dateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_dateButton addTarget:self action:@selector(dateButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_dateButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _dateButton.titleLabel.font = [UIFont systemFontOfSize:15];
     }
     return _dateButton;
 }
@@ -47,8 +56,21 @@
 - (UIButton *)nextButton {
     if (!_nextButton) {
         _nextButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        [_nextButton addTarget:self action:@selector(nextButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _nextButton;
+}
+
+- (HooDatePicker *)datePicker {
+    if (!_datePicker) {
+        _datePicker = [[HooDatePicker alloc] initWithSuperView:[UIApplication sharedApplication].keyWindow];
+        _datePicker.timeZone = self.timeZone;
+        _datePicker.calendar.timeZone = self.timeZone;
+        _datePicker.highlightColor = [UIColor lightGrayColor];
+        _datePicker.delegate = self;
+        [_datePicker setDate:_selectDate animated:NO];
+    }
+    return _datePicker;
 }
 
 #pragma mark - init
@@ -63,6 +85,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self createView];
+}
+
+- (void)dealloc {
+    [self.datePicker removeFromSuperview];
+    self.datePicker = nil;
 }
 
 #pragma mark - view
@@ -87,8 +114,82 @@
     [self.dateButton.rightAnchor constraintEqualToAnchor:self.nextButton.leftAnchor].active = YES;
     [self.dateButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
     [self.dateButton.leftAnchor constraintEqualToAnchor:self.previousButton.rightAnchor].active = YES;
+    
+    self.selectDate = [NSDate date];
+    self.maxDate = [NSDate date];
+    self.minDate = self.maxDate;
 }
 
 #pragma mark - action
+- (void)previousButtonAction:(UIButton *)sender {
+    if ([self.controlDelegate conformsToProtocol:@protocol(SGCalendarControlViewDelegate)]) {
+        if ([self.controlDelegate respondsToSelector:@selector(calendarControlView:previousButtonAction:)]) {
+            [self.controlDelegate calendarControlView:self previousButtonAction:sender];
+        }
+    }
+}
+
+- (void)nextButtonAction:(UIButton *)sender {
+    if ([self.controlDelegate conformsToProtocol:@protocol(SGCalendarControlViewDelegate)]) {
+        if ([self.controlDelegate respondsToSelector:@selector(calendarControlView:nextButtonAction:)]) {
+            [self.controlDelegate calendarControlView:self nextButtonAction:sender];
+        }
+    }
+}
+
+- (void)dateButtonAction:(UIButton *)sender {
+    [self.datePicker setDate:self.selectDate animated:NO];
+    [self.datePicker show];
+}
+
+#pragma mark - set
+- (void)setMaxDate:(NSDate *)maxDate {
+    _maxDate = maxDate;
+    self.datePicker.maximumDate = maxDate;
+}
+
+- (void)setMinDate:(NSDate *)minDate {
+    _minDate = minDate;
+    self.datePicker.minimumDate = minDate;
+}
+
+#pragma mark - get
+- (NSTimeZone *)timeZone {
+    return [NSTimeZone systemTimeZone];;
+}
+
+- (NSLocale *)locale {
+    return [NSLocale currentLocale];
+}
+
+- (NSDateFormatter *)dateFormatter {
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.timeZone = self.timeZone;
+    fmt.locale = self.locale;
+    fmt.calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    return fmt;
+}
+
+#pragma mark - HooDatePickerDelegate
+- (void)datePicker:(HooDatePicker *)datePicker didCancel:(UIButton *)sender {
+    
+}
+
+- (void)datePicker:(HooDatePicker *)datePicker dateDidChange:(NSDate *)date {
+    
+}
+
+- (void)datePicker:(HooDatePicker *)dataPicker didSelectedDate:(NSDate *)date {
+    self.selectDate = date;
+}
+
+- (void)setSelectDate:(NSDate *)selectDate {
+    _selectDate = selectDate;
+    if ([self.controlDelegate conformsToProtocol:@protocol(SGCalendarControlViewDelegate)]) {
+        if ([self.controlDelegate respondsToSelector:@selector(calendarControlView:didChangeSelectDate:)]) {
+            [self.controlDelegate calendarControlView:self didChangeSelectDate:self.selectDate];
+        }
+    }
+}
 
 @end

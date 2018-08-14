@@ -17,4 +17,6 @@ typedef enum : NSUInteger {
 
 @interface SGCalendarTopView : UIView
 
+- (instancetype)initWithCalendarStartType:(SGCalendarStartType)type selectIndex:(NSInteger)index;
+
 @end
