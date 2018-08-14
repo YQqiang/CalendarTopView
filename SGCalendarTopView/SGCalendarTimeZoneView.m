@@ -28,7 +28,6 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSystemTimeZoneDidChangeNotification object:nil];
-    NSLog(@"%s", __func__);
 }
 
 - (void)timeZoneDidChange {
