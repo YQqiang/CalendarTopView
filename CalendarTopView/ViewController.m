@@ -21,7 +21,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    SGCalendarTopView *calendarView = [[SGCalendarTopView alloc] init];
+    SGCalendarTopView *calendarView = [[SGCalendarTopView alloc] initWithCalendarStartType:CalendarStartDay selectIndex:3];
     [self.view addSubview:calendarView];
     calendarView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     calendarView.translatesAutoresizingMaskIntoConstraints = NO;

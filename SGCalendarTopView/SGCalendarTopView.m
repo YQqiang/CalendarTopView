@@ -30,6 +30,8 @@
  */
 @property (nonatomic, copy) NSString *currentTimeZone;
 
+@property (nonatomic, strong) NSLayoutConstraint *controlViewHeightConstraint;
+
 @end
 
 @implementation SGCalendarTopView
@@ -115,8 +117,8 @@
     [self.dateControlView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [self.dateControlView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
     [self.dateControlView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [self.dateControlView.heightAnchor constraintEqualToConstant:44].active = YES;
-    
+    self.controlViewHeightConstraint = [self.dateControlView.heightAnchor constraintEqualToConstant:44];
+    self.controlViewHeightConstraint.active = YES;
     [self updateSelectDateRangeWithTimeZone:@"GMT+9"];
 }
 
@@ -163,6 +165,7 @@
     [self updateDatePickerMode];
     [self changeDateButtonEable];
     [self updateDateButtonTitle];
+    [self updateControlViewHeight];
 }
 
 /**
@@ -228,12 +231,26 @@
     [self.dateControlView.dateButton setTitle:value forState:UIControlStateNormal];
 }
 
+- (void)updateControlViewHeight {
+    if (self.selectIndex == 3) {
+        self.controlViewHeightConstraint.constant = 0;
+        self.dateControlView.hidden = YES;
+    } else {
+        self.controlViewHeightConstraint.constant = 44;
+        self.dateControlView.hidden = NO;
+    }
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.dateControlView layoutIfNeeded];
+    }];
+}
+
 #pragma mark - SGCalendarTitleViewDelegate
 - (void)calendarTitleView:(SGCalendarTitleView *)titleView didSelectedIndex:(NSInteger)index {
     self.selectIndex = index + self.calendarStartType;
     [self updateDatePickerMode];
     [self changeDateButtonEable];
     [self updateDateButtonTitle];
+    [self updateControlViewHeight];
 }
 
 #pragma mark - SGCalendarControlViewDelegate
