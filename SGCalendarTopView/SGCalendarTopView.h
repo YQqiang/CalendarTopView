@@ -21,4 +21,8 @@ typedef enum : NSUInteger {
 
 - (void)updateSelectDateRangeWithTimeZone:(NSString *)timeZone;
 
+- (void)showTitleView:(BOOL)show animated:(BOOL)animated;
+
+- (void)showDateControlView:(BOOL)show animated:(BOOL)animated;
+
 @end

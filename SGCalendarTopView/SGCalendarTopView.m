@@ -30,6 +30,7 @@
  */
 @property (nonatomic, copy) NSString *currentTimeZone;
 
+@property (nonatomic, strong) NSLayoutConstraint *titleViewHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *controlViewHeightConstraint;
 
 @end
@@ -102,8 +103,8 @@
     [self.titleView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [self.titleView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [self.titleView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
-    [self.titleView.heightAnchor constraintEqualToConstant:44].active = YES;
-    
+    self.titleViewHeightConstraint = [self.titleView.heightAnchor constraintEqualToConstant:44];
+    self.titleViewHeightConstraint.active = YES;
     self.titleView.selectedColor = [UIColor blueColor];
     self.titleView.noSlectedColor = [UIColor blackColor];
     self.titleView.titleArray = itemTitles;
@@ -243,16 +244,50 @@
 }
 
 - (void)updateControlViewHeight {
-    if (self.selectIndex == 3) {
-        self.controlViewHeightConstraint.constant = 0;
-        self.dateControlView.hidden = YES;
+    [self showDateControlView:self.selectIndex != 3 animated:YES];
+}
+
+#pragma mark - public action
+/**
+ 控制是否显示 标题栏 (默认显示)
+
+ @param show 是否显示
+ @param animated 是否需要动画
+ */
+- (void)showTitleView:(BOOL)show animated:(BOOL)animated {
+    if (show) {
+        self.titleViewHeightConstraint.constant = 44;
+        self.titleView.hidden = NO;
     } else {
+        self.titleViewHeightConstraint.constant = 0;
+        self.titleView.hidden = YES;
+    }
+    if (animated) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.titleView layoutIfNeeded];
+        }];
+    }
+}
+
+/**
+ 是否显示 日期切换 (内部逻辑: 切换总时, 隐藏日期切换)
+
+ @param show 是否显示
+ @param animated 是否需要动画
+ */
+- (void)showDateControlView:(BOOL)show animated:(BOOL)animated {
+    if (show) {
         self.controlViewHeightConstraint.constant = 44;
         self.dateControlView.hidden = NO;
+    } else {
+        self.controlViewHeightConstraint.constant = 0;
+        self.dateControlView.hidden = YES;
     }
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.dateControlView layoutIfNeeded];
-    }];
+    if (animated) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.dateControlView layoutIfNeeded];
+        }];
+    }
 }
 
 #pragma mark - SGCalendarTitleViewDelegate
@@ -286,7 +321,6 @@
 }
 
 - (void)calendarControlView:(SGCalendarControlView *)view didChangeSelectDate:(NSDate *)date {
-    NSLog(@"date = %@", date);
     [self changeDateButtonEable];
     [self updateDateButtonTitle];
 }
