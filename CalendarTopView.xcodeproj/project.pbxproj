@@ -21,6 +21,7 @@
 		2F49F61D2121B62100BB2B0A /* HooDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F61B2121B62100BB2B0A /* HooDatePicker.m */; };
 		2F49F61E2121B62100BB2B0A /* NSDate+HooDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F61C2121B62100BB2B0A /* NSDate+HooDatePicker.m */; };
 		2F49F6212122AAE600BB2B0A /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F6202122AAE600BB2B0A /* DemoViewController.m */; };
+		2F49F6242122BE0C00BB2B0A /* SGCalendarTimeZoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49F6232122BE0C00BB2B0A /* SGCalendarTimeZoneView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,8 @@
 		2F49F61C2121B62100BB2B0A /* NSDate+HooDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HooDatePicker.m"; sourceTree = "<group>"; };
 		2F49F61F2122AAE600BB2B0A /* DemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
 		2F49F6202122AAE600BB2B0A /* DemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
+		2F49F6222122BE0C00BB2B0A /* SGCalendarTimeZoneView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGCalendarTimeZoneView.h; sourceTree = "<group>"; };
+		2F49F6232122BE0C00BB2B0A /* SGCalendarTimeZoneView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SGCalendarTimeZoneView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,8 @@
 				2F49F6162121AA5600BB2B0A /* SGCalendarControlView.m */,
 				2F49F5D92121114300BB2B0A /* SGCalendarTopView.h */,
 				2F49F5DA2121114300BB2B0A /* SGCalendarTopView.m */,
+				2F49F6222122BE0C00BB2B0A /* SGCalendarTimeZoneView.h */,
+				2F49F6232122BE0C00BB2B0A /* SGCalendarTimeZoneView.m */,
 			);
 			path = SGCalendarTopView;
 			sourceTree = "<group>";
@@ -317,6 +322,7 @@
 				2F49F6212122AAE600BB2B0A /* DemoViewController.m in Sources */,
 				2F49F5B3212110E200BB2B0A /* main.m in Sources */,
 				2F49F5A5212110E100BB2B0A /* AppDelegate.m in Sources */,
+				2F49F6242122BE0C00BB2B0A /* SGCalendarTimeZoneView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

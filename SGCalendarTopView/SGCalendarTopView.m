@@ -27,11 +27,6 @@ static const CGFloat DateControlViewHeight_ = 44;
  */
 @property (nonatomic, assign) NSUInteger selectIndex;
 
-/**
- 当前使用的时区
- */
-@property (nonatomic, copy) NSString *currentTimeZone;
-
 @property (nonatomic, strong) NSLayoutConstraint *titleViewHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *controlViewHeightConstraint;
 
@@ -94,11 +89,6 @@ static const CGFloat DateControlViewHeight_ = 44;
     return self;
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSystemTimeZoneDidChangeNotification object:nil];
-    NSLog(@"%s", __func__);
-}
-
 #pragma mark - view
 - (void)createView {
     self.calendarStartType = !self.calendarStartType ? CalendarStartDay : self.calendarStartType;
@@ -141,48 +131,12 @@ static const CGFloat DateControlViewHeight_ = 44;
     [self.bottomLine.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
     [self.bottomLine.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
     [self.bottomLine.heightAnchor constraintEqualToConstant:(2 / [UIScreen mainScreen].scale)].active = YES;
-    
-    [self updateSelectDateRangeWithTimeZone:@"GMT+9"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(timeZoneDidChange) name:NSSystemTimeZoneDidChangeNotification object:nil];
+    [self updateMaxDate:self.dateControlView.selectDate minDate:self.dateControlView.selectDate];
 }
 
 #pragma mark - action
 
-- (void)timeZoneDidChange {
-    [self updateSelectDateRangeWithTimeZone:self.currentTimeZone];
-}
-
-/**
- 更新日历控件的日期选择范围
- 
- @param timeZone 依据时区
- */
-- (void)updateSelectDateRangeWithTimeZone:(NSString *)timeZone {
-    if (!timeZone) return;
-    [[NSUserDefaults standardUserDefaults] setValue:@"20170112" forKey:@"min_date"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    self.currentTimeZone = timeZone;
-    NSDateFormatter *dateFormatter = self.dateControlView.dateFormatter;
-    [dateFormatter setDateFormat: @"yyyy-MM-dd"];
-    NSDate *max_date = [NSDate date];
-    // TODO: 如果和当前时区和系统时区不一致,则默认加一天
-    if (0) {
-        max_date = [NSDate dateWithTimeInterval:24 * 60 * 60 sinceDate:[NSDate date]];
-    }
-    NSString *currentDate = [dateFormatter stringFromDate:max_date];
-    [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
-    NSDate *maxDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ 23:59:59", currentDate]];
-    NSString *minDateStr = [[NSUserDefaults standardUserDefaults] valueForKey:@"min_date"];
-    NSDate *minDate;
-    if (minDateStr == nil || minDateStr.length <= 0) {
-        minDate = maxDate;
-    } else {
-        NSString *min_dateStr = [NSString stringWithFormat:@"%@235959",minDateStr];
-        dateFormatter.dateFormat = @"yyyyMMddHHmmss";
-        NSDate *min_dateStrDate = [dateFormatter dateFromString:min_dateStr];
-        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-        minDate = [dateFormatter dateFromString:[dateFormatter stringFromDate:min_dateStrDate]];
-    }
+- (void)updateMaxDate:(NSDate *)maxDate minDate:(NSDate *)minDate {
     NSComparisonResult comparisonResult = [self.dateControlView.selectDate compare:maxDate];
     if (comparisonResult == NSOrderedDescending) {
         self.dateControlView.selectDate = maxDate;

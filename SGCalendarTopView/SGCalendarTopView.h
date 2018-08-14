@@ -27,12 +27,42 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong, readonly) SGCalendarTitleView *titleView;
 @property (nonatomic, strong, readonly) SGCalendarControlView *dateControlView;
 
+/**
+ 初始化方法
+
+ @param type 控件起始类型
+ @param index 默认选中下标
+ @return 控件
+ */
 - (instancetype)initWithCalendarStartType:(SGCalendarStartType)type selectIndex:(NSInteger)index;
 
-- (void)updateSelectDateRangeWithTimeZone:(NSString *)timeZone;
+/**
+ 供子类继承使用
+ */
+- (void)createView;
 
+/**
+ 更新最大最小日期
+
+ @param maxDate 最大日期
+ @param minDate 最小日期
+ */
+- (void)updateMaxDate:(NSDate *)maxDate minDate:(NSDate *)minDate;
+
+/**
+ 是否显示 标题栏 (默认显示)
+ 
+ @param show 是否显示
+ @param animated 是否需要动画
+ */
 - (void)showTitleView:(BOOL)show animated:(BOOL)animated;
 
+/**
+ 是否显示 日期切换 (内部逻辑: 切换总时, 隐藏日期切换)
+ 
+ @param show 是否显示
+ @param animated 是否需要动画
+ */
 - (void)showDateControlView:(BOOL)show animated:(BOOL)animated;
 
 @end
