@@ -92,7 +92,7 @@ static const CGFloat DateControlViewHeight_ = 44;
 #pragma mark - view
 - (void)createView {
     self.calendarStartType = !self.calendarStartType ? CalendarStartDay : self.calendarStartType;
-    NSMutableArray *itemTitles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"日", @"日"),NSLocalizedString(@"月", @"月"), NSLocalizedString(@"年", @"年"), NSLocalizedString(@"总", @"总")]];
+    NSMutableArray *itemTitles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"I18N_COMMON_DAY1", @"日"),NSLocalizedString(@"I18N_COMMON_MONTH", @"月"), NSLocalizedString(@"I18N_COMMON_YEAR", @"年"), NSLocalizedString(@"I18N_COMMON_TOTAL2", @"总")]];
     for (int i = 0 ; i < self.calendarStartType; i ++) {
         [itemTitles removeObjectAtIndex:0];
     }
