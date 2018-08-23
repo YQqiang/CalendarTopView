@@ -102,8 +102,7 @@
 		2F49F597212110E100BB2B0A = {
 			isa = PBXGroup;
 			children = (
-				2F49F6182121B62100BB2B0A /* HooDatePicker */,
-				2F49F5D5212110F100BB2B0A /* SGCalendarTopView */,
+				2F9991D5212ED12100421F7B /* Classes */,
 				2F49F5A2212110E100BB2B0A /* CalendarTopView */,
 				2F49F5BB212110E300BB2B0A /* CalendarTopViewTests */,
 				2F49F5C6212110E300BB2B0A /* CalendarTopViewUITests */,
@@ -181,6 +180,15 @@
 				2F49F61C2121B62100BB2B0A /* NSDate+HooDatePicker.m */,
 			);
 			path = HooDatePicker;
+			sourceTree = "<group>";
+		};
+		2F9991D5212ED12100421F7B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2F49F6182121B62100BB2B0A /* HooDatePicker */,
+				2F49F5D5212110F100BB2B0A /* SGCalendarTopView */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
