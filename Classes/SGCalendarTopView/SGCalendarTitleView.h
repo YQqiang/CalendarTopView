@@ -42,7 +42,7 @@
 /**
  下划线的颜色
  */
-@property(nonatomic,strong)UIColor *LineColor;
+@property(nonatomic,strong)UIColor *lineColor;
 
 /**
  当前选中的索引值

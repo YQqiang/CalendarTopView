@@ -72,7 +72,7 @@
     self.itemsWidth = [[NSArray alloc]init];
     self.selectedColor = [UIColor whiteColor];
     self.noSlectedColor = [UIColor blackColor];
-    self.LineColor = [UIColor blueColor];
+    self.lineColor = [UIColor blueColor];
     self.titleFont = [UIFont systemFontOfSize:15.f];
     _navigationTabBarWidth = self.bounds.size.width;
     CGRect scrollViewRect = self.bounds;
@@ -189,7 +189,7 @@
 - (void)showLineWithButtonWidth:(CGFloat)width {
     _line = [[UIView alloc] initWithFrame:CGRectMake(2.0f, self.bounds.size.height - 3.0f, width - 4.0f, 3.0f)];
     _line.layer.cornerRadius = 3;
-    _line.backgroundColor = self.LineColor;
+    _line.backgroundColor = self.lineColor;
     [self.scrollView addSubview:_line];
 }
 
@@ -234,4 +234,17 @@
         [_items[i] setTitleColor:(i == index)?self.selectedColor:self.noSlectedColor forState:UIControlStateNormal];
     }
 }
+
+#pragma mark - setter
+
+- (void)setLineColor:(UIColor *)LineColor {
+    _lineColor = LineColor;
+    self.line.backgroundColor = LineColor;
+}
+
+- (void)setSelectedColor:(UIColor *)selectedColor {
+    _selectedColor = selectedColor;
+    self.currentIndex = _currentIndex;
+}
+
 @end

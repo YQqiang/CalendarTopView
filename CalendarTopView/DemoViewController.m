@@ -19,6 +19,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     SGCalendarTimeZoneView *calendarView = [[SGCalendarTimeZoneView alloc] initWithCalendarStartType:CalendarStartDay selectIndex:0];
+    calendarView.titleView.selectedColor = [UIColor redColor];
+    calendarView.titleView.lineColor = [UIColor redColor];
     [self.view addSubview:calendarView];
     calendarView.translatesAutoresizingMaskIntoConstraints = NO;
     [calendarView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:0].active = YES;
