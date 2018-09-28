@@ -172,6 +172,49 @@
     return fmt;
 }
 
+/**
+ 获取 datePicker 工具条的取消按钮
+ 
+ @return 取消按钮
+ */
+- (UIButton *)datePickerCancelButton {
+    UIView *tooBar = [self datePickerHeaderView];
+    for (UIView *subV in tooBar.subviews) {
+        if ([subV isKindOfClass:[UIButton class]]) {
+            return (UIButton *)subV;
+        }
+    }
+    return nil;
+}
+
+/**
+ 获取 datePicker 工具条的确认按钮
+
+ @return 确认按钮
+ */
+- (UIButton *)datePickerConfirmButton {
+    UIView *tooBar = [self datePickerHeaderView];
+    for (UIView *subV in tooBar.subviews.reverseObjectEnumerator) {
+        if ([subV isKindOfClass:[UIButton class]]) {
+            return (UIButton *)subV;
+        }
+    }
+    return nil;
+}
+
+/**
+ 获取 datePicker 的工具条
+
+ @return 工具条
+ */
+- (UIView *)datePickerHeaderView {
+    if ([self.datePicker respondsToSelector:NSSelectorFromString(@"headerView")]) {
+        UIView *tooBar = [self.datePicker valueForKey:@"headerView"];
+        return tooBar;
+    }
+    return nil;
+}
+
 #pragma mark - HooDatePickerDelegate
 - (void)datePicker:(HooDatePicker *)datePicker didCancel:(UIButton *)sender {
     

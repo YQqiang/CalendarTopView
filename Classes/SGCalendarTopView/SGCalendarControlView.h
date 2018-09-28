@@ -55,4 +55,8 @@
 
 @property (nonatomic, strong, readonly) NSDateFormatter *dateFormatter;
 
+@property (nonatomic, strong, readonly) UIButton *datePickerCancelButton;
+
+@property (nonatomic, strong, readonly) UIButton *datePickerConfirmButton;
+
 @end
