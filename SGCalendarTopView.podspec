@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SGCalendarTopView"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "select day month year total date "
 
   # This description is used to generate tags and improve search results.
