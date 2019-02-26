@@ -65,11 +65,13 @@ typedef enum : NSUInteger {
  */
 - (void)showDateControlView:(BOOL)show animated:(BOOL)animated;
 
-/**
- 配置当前选中的下标
 
- @param index 下标
+/**
+ 配置当前选中的下标和日期  会回调一次代理函数
+
+ @param index 选中的下标
+ @param date 选中的日期
  */
-- (void)configSelectIndex:(NSInteger)index;
+- (void)configSelectIndex:(NSInteger)index currentDate:(NSDate *)date;
 
 @end

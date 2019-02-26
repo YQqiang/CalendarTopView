@@ -322,11 +322,19 @@ static const CGFloat DateControlViewHeight_ = 44;
     return mDate;
 }
 
-- (void)configSelectIndex:(NSInteger)index {
+- (void)configSelectIndex:(NSInteger)index currentDate:(NSDate *)date {
+    BOOL shouldConfigDate = (date != nil) && ([self.dateControlView.selectDate compare:date] != NSOrderedSame);
     if (index >= 0 && index < self.titleView.titleArray.count) {
         if (self.selectIndex != index) {
+            if (shouldConfigDate) {
+                [self.dateControlView setValue:date forKey:@"_selectDate"];
+            }
             [self.titleView curSelectedIndex:index];
+            return;
         }
+    }
+    if (shouldConfigDate) {
+        self.dateControlView.selectDate = date;
     }
 }
 

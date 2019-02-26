@@ -38,7 +38,9 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.calendarView configSelectIndex:2];
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateFormat = @"yyy-MM-dd HH:mm:ss";
+    [self.calendarView configSelectIndex:4 currentDate:[fmt dateFromString:@"2017-8-14 12:32:44"]];
 }
 
 - (void)didReceiveMemoryWarning {
