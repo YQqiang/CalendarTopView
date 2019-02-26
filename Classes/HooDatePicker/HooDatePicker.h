@@ -77,4 +77,7 @@ typedef NS_ENUM(NSInteger,HooDatePickerMode) {
 - (void)show;
 
 - (void)dismiss;
+
+- (void)reLayoutSubviews;
+
 @end

@@ -144,6 +144,17 @@
     [self.datePicker show];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (self.window) {
+        BOOL isShow = self.datePicker.isOpen;
+        [self.datePicker reLayoutSubviews];
+        if (isShow) {
+            [self.datePicker show];
+        }
+    }
+}
+
 #pragma mark - set
 - (void)setMaxDate:(NSDate *)maxDate {
     _maxDate = maxDate;
@@ -178,8 +189,8 @@
  @return 取消按钮
  */
 - (UIButton *)datePickerCancelButton {
-    UIView *tooBar = [self datePickerHeaderView];
-    for (UIView *subV in tooBar.subviews) {
+    UIStackView *tooBar = [self datePickerHeaderView];
+    for (UIView *subV in tooBar.arrangedSubviews) {
         if ([subV isKindOfClass:[UIButton class]]) {
             return (UIButton *)subV;
         }
@@ -193,8 +204,8 @@
  @return 确认按钮
  */
 - (UIButton *)datePickerConfirmButton {
-    UIView *tooBar = [self datePickerHeaderView];
-    for (UIView *subV in tooBar.subviews.reverseObjectEnumerator) {
+    UIStackView *tooBar = [self datePickerHeaderView];
+    for (UIView *subV in tooBar.arrangedSubviews.reverseObjectEnumerator) {
         if ([subV isKindOfClass:[UIButton class]]) {
             return (UIButton *)subV;
         }
@@ -207,10 +218,14 @@
 
  @return 工具条
  */
-- (UIView *)datePickerHeaderView {
+- (UIStackView *)datePickerHeaderView {
     if ([self.datePicker respondsToSelector:NSSelectorFromString(@"headerView")]) {
         UIView *tooBar = [self.datePicker valueForKey:@"headerView"];
-        return tooBar;
+        for (UIView *subv in tooBar.subviews) {
+            if ([subv isKindOfClass:[UIStackView class]]) {
+                return (UIStackView *)subv;
+            }
+        }
     }
     return nil;
 }

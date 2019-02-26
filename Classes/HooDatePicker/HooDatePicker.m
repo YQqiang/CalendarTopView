@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
         self.highlightColor = kHooDatePickerHighlightColor;
         self.cancelButtonColor = [UIColor blueColor];
         self.sureButtonColor = [UIColor blueColor];
-        [self addSubview:self.headerView];
+        [self addHeaderView];
         [self setupControl];
     }
     return self;
@@ -141,7 +141,7 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
         self.highlightColor = kHooDatePickerHighlightColor;
         self.cancelButtonColor = [UIColor blueColor];
         self.sureButtonColor = [UIColor blueColor];
-        [self addSubview:self.headerView];
+        [self addHeaderView];
         [self setupControl];
     }
     return self;
@@ -165,10 +165,19 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
         }
         self.tintColor = kHooDatePickerTintColor;
         self.highlightColor = kHooDatePickerHighlightColor;
-        [self addSubview:self.headerView];
+        [self addHeaderView];
         [self setupControl];
     }
     return self;
+}
+
+- (void)addHeaderView {
+    [self addSubview:self.headerView];
+    self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.headerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    [self.headerView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [self.headerView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    [self.headerView.heightAnchor constraintEqualToConstant:kHooDatePickerHeaderHeight].active = YES;
 }
 
 - (void)setupControl {
@@ -845,12 +854,11 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
         int indexYears = [self getIndexForScrollViewPosition:_scrollViewYears];
         [self highlightLabelInArray:_labelsYears atIndex:indexYears];
     }
-
+    __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:kHooDatePickerAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.frame = CGRectMake(self.frame.origin.x, _superView.frame.size.height - kHooDatePickerHeight, self.frame.size.width, self.frame.size.height);
+        self.frame = CGRectMake(self.frame.origin.x, weakSelf.superView.frame.size.height - kHooDatePickerHeight, self.frame.size.width, self.frame.size.height);
     } completion:^(BOOL finished) {
-        _isOpen = YES;
-
+        self->_isOpen = YES;
     }];
 }
 
@@ -858,10 +866,10 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
 
     if (!_superView) return;
     [UIView animateWithDuration:kHooDatePickerAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.frame = CGRectMake(self.frame.origin.x, _superView.frame.size.height, self.frame.size.width, self.frame.size.height);
+        self.frame = CGRectMake(self.frame.origin.x, self->_superView.frame.size.height, self.frame.size.width, self.frame.size.height);
         self.dimBackgroundView.alpha = 0.0;
     } completion:^(BOOL finished) {
-        _isOpen = NO;
+        self->_isOpen = NO;
         [self.dimBackgroundView removeFromSuperview];
         self.dimBackgroundView = nil;
     }];
@@ -1544,19 +1552,31 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
 - (UIView *)headerView {
     if (!_headerView) {
         _headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.frame.size.width, kHooDatePickerHeaderHeight)];
+        // StackView
+        UIStackView *stackView = [[UIStackView alloc] init];
+        stackView.axis = UILayoutConstraintAxisHorizontal;
+        stackView.alignment = UIStackViewAlignmentCenter;
+        stackView.distribution = UIStackViewDistributionFillEqually;
+        stackView.spacing = kHooDatePickerPadding;
+        [_headerView addSubview:stackView];
+        stackView.translatesAutoresizingMaskIntoConstraints = NO;
+        [stackView.topAnchor constraintEqualToAnchor:_headerView.topAnchor].active = YES;
+        [stackView.leftAnchor constraintEqualToAnchor:_headerView.leftAnchor].active = YES;
+        [stackView.rightAnchor constraintEqualToAnchor:_headerView.rightAnchor].active = YES;
+        [stackView.bottomAnchor constraintEqualToAnchor:_headerView.bottomAnchor].active = YES;
         // Button Cancel
         UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(kHooDatePickerPadding, 0.0, kHooDatePickerButtonHeaderWidth, kHooDatePickerHeaderHeight)];
         [cancelButton setTitle:kCancelButtonItemTitle forState:UIControlStateNormal];
         [cancelButton setTitleColor:self.cancelButtonColor forState:UIControlStateNormal];
         [cancelButton addTarget:self action:@selector(actionButtonCancel:) forControlEvents:UIControlEventTouchUpInside];
-        [_headerView addSubview:cancelButton];
+        [stackView addArrangedSubview:cancelButton];
 
         // Button confirm
         UIButton *sureButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - kHooDatePickerButtonHeaderWidth - kHooDatePickerPadding, 0.0, kHooDatePickerButtonHeaderWidth, kHooDatePickerHeaderHeight)];
         [sureButton setTitle:kSureButtonItemTitle forState:UIControlStateNormal];
         [sureButton setTitleColor:self.sureButtonColor forState:UIControlStateNormal];
         [sureButton addTarget:self action:@selector(actionButtonValid:) forControlEvents:UIControlEventTouchUpInside];
-        [_headerView addSubview:sureButton];
+        [stackView addArrangedSubview:sureButton];
 
         // Label Title
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(cancelButton.frame) + kHooDatePickerPadding, 0.0, self.frame.size.width - ((kHooDatePickerButtonHeaderWidth + kHooDatePickerPadding * 2) * 2 ), kHooDatePickerHeaderHeight)];
@@ -1564,7 +1584,7 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
         _titleLabel.font = kHooDatePickerTitleFont;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = self.tintColor;
-        [_headerView addSubview:_titleLabel];
+        [stackView insertArrangedSubview:_titleLabel atIndex:1];
     }
     return _headerView;
 }
@@ -1698,5 +1718,9 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
     [self setupControl];
 }
 
+- (void)reLayoutSubviews {
+    self.frame = CGRectMake(0.0, self.superView.frame.size.height, self.superView.frame.size.width, kHooDatePickerHeight);
+    [self setupControl];
+}
 
 @end
