@@ -181,6 +181,14 @@
     self.scrollView.contentSize = CGSizeMake(contentWidth, 0);
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _navigationTabBarWidth = self.bounds.size.width;
+    self.scrollView.frame = self.bounds;
+    self.titleArray = self.titleArray;
+    self.currentIndex = self.currentIndex;
+}
+
 /**
  增加下划线
 
