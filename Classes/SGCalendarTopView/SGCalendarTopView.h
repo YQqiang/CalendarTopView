@@ -65,4 +65,11 @@ typedef enum : NSUInteger {
  */
 - (void)showDateControlView:(BOOL)show animated:(BOOL)animated;
 
+/**
+ 配置当前选中的下标
+
+ @param index 下标
+ */
+- (void)configSelectIndex:(NSInteger)index;
+
 @end

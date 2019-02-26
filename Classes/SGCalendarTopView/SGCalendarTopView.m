@@ -322,4 +322,12 @@ static const CGFloat DateControlViewHeight_ = 44;
     return mDate;
 }
 
+- (void)configSelectIndex:(NSInteger)index {
+    if (index >= 0 && index < self.titleView.titleArray.count) {
+        if (self.selectIndex != index) {
+            [self.titleView curSelectedIndex:index];
+        }
+    }
+}
+
 @end

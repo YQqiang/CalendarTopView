@@ -49,4 +49,11 @@
  */
 @property (nonatomic, assign) NSInteger currentIndex;
 
+/**
+ 修改选中的下标
+
+ @param index 下标
+ */
+-(void)curSelectedIndex:(NSInteger)index;
+
 @end

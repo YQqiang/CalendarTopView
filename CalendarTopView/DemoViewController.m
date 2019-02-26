@@ -11,6 +11,8 @@
 
 @interface DemoViewController ()
 
+@property (nonatomic, strong) SGCalendarTimeZoneView *calendarView;
+
 @end
 
 @implementation DemoViewController
@@ -32,6 +34,11 @@
     [calendarView setDateDidChange:^(NSInteger selectIndex, NSDate *selectDate, NSString *title) {
         NSLog(@"--- %zd --- %@ --- %@ ---", selectIndex, selectDate, title);
     }];
+    self.calendarView = calendarView;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.calendarView configSelectIndex:2];
 }
 
 - (void)didReceiveMemoryWarning {
