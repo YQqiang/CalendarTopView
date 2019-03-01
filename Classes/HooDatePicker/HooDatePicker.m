@@ -1568,6 +1568,8 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
         UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(kHooDatePickerPadding, 0.0, kHooDatePickerButtonHeaderWidth, kHooDatePickerHeaderHeight)];
         [cancelButton setTitle:kCancelButtonItemTitle forState:UIControlStateNormal];
         [cancelButton setTitleColor:self.cancelButtonColor forState:UIControlStateNormal];
+        [cancelButton setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 8)];
+        [cancelButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [cancelButton addTarget:self action:@selector(actionButtonCancel:) forControlEvents:UIControlEventTouchUpInside];
         [stackView addArrangedSubview:cancelButton];
 
@@ -1575,6 +1577,8 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
         UIButton *sureButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - kHooDatePickerButtonHeaderWidth - kHooDatePickerPadding, 0.0, kHooDatePickerButtonHeaderWidth, kHooDatePickerHeaderHeight)];
         [sureButton setTitle:kSureButtonItemTitle forState:UIControlStateNormal];
         [sureButton setTitleColor:self.sureButtonColor forState:UIControlStateNormal];
+        [sureButton setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 8)];
+        [sureButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [sureButton addTarget:self action:@selector(actionButtonValid:) forControlEvents:UIControlEventTouchUpInside];
         [stackView addArrangedSubview:sureButton];
 
