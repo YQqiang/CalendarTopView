@@ -175,8 +175,16 @@ typedef NS_ENUM(NSInteger,ScrollViewTagValue) {
     [self addSubview:self.headerView];
     self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.headerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-    [self.headerView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
-    [self.headerView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    if (@available(iOS 11.0, *)) {
+        [self.headerView.leftAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leftAnchor].active = YES;
+    } else {
+        [self.headerView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    }
+    if (@available(iOS 11.0, *)) {
+        [self.headerView.rightAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.rightAnchor].active = YES;
+    } else {
+        [self.headerView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    }
     [self.headerView.heightAnchor constraintEqualToConstant:kHooDatePickerHeaderHeight].active = YES;
 }
 
