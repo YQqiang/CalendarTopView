@@ -9,7 +9,7 @@
 #import "SGCalendarTopView.h"
 
 static const CGFloat TitleViewHeight_ = 44;
-static const CGFloat DateControlViewHeight_ = 44;
+static const CGFloat DateControlViewHeight_ = 36;
 
 @interface SGCalendarTopView ()<SGCalendarTitleViewDelegate, SGCalendarControlViewDelegate>
 
