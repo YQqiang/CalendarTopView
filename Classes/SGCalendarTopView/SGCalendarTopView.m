@@ -148,7 +148,7 @@ static const CGFloat DateControlViewHeight_ = 36;
     [self updateDatePickerMode];
     [self changeDateButtonEable];
     [self updateDateButtonTitle];
-    [self updateControlViewHeight];
+    [self updateControlViewHeight:NO];
 }
 
 /**
@@ -217,8 +217,8 @@ static const CGFloat DateControlViewHeight_ = 36;
     }
 }
 
-- (void)updateControlViewHeight {
-    [self showDateControlView:self.selectIndex != 3 animated:YES];
+- (void)updateControlViewHeight:(BOOL)animated {
+    [self showDateControlView:self.selectIndex != 3 animated:animated];
 }
 
 #pragma mark - public action
@@ -270,7 +270,7 @@ static const CGFloat DateControlViewHeight_ = 36;
     [self updateDatePickerMode];
     [self changeDateButtonEable];
     [self updateDateButtonTitle];
-    [self updateControlViewHeight];
+    [self updateControlViewHeight:YES];
 }
 
 #pragma mark - SGCalendarControlViewDelegate

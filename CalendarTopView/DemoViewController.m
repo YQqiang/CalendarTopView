@@ -27,7 +27,11 @@
     [calendarView.dateControlView.datePickerConfirmButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.view addSubview:calendarView];
     calendarView.translatesAutoresizingMaskIntoConstraints = NO;
-    [calendarView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:0].active = YES;
+    if (@available(iOS 11.0, *)) {
+        [calendarView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:0].active = YES;
+    } else {
+        [calendarView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:0].active = YES;
+    }
     [calendarView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
     [calendarView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
     
