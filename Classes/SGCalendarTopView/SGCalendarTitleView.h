@@ -17,32 +17,32 @@
 
 @interface SGCalendarTitleView : UIView
 
-@property (nonatomic, weak) id  <SGCalendarTitleViewDelegate>delegate;
+@property (nonatomic, weak) id <SGCalendarTitleViewDelegate>delegate;
 
 /**
  菜单名称数组
  */
-@property(nonatomic,copy)NSArray <NSString *>*titleArray;
+@property(nonatomic,copy) NSArray <NSString *>*titleArray;
 
 /**
  选中菜单时的文字颜色
  */
-@property(nonatomic,strong)UIColor *selectedColor;
+@property(nonatomic,strong) UIColor *selectedColor;
 
 /**
  未选中菜单的文字颜色
  */
-@property(nonatomic,strong)UIColor *noSlectedColor;
+@property(nonatomic,strong) UIColor *noSlectedColor;
 
 /**
  文字的字体
  */
-@property(nonatomic,strong)UIFont *titleFont;
+@property(nonatomic,strong) UIFont *titleFont;
 
 /**
  下划线的颜色
  */
-@property(nonatomic,strong)UIColor *lineColor;
+@property(nonatomic,strong) UIColor *lineColor;
 
 /**
  当前选中的索引值
@@ -54,6 +54,6 @@
 
  @param index 下标
  */
--(void)curSelectedIndex:(NSInteger)index;
+- (void)curSelectedIndex:(NSInteger)index;
 
 @end

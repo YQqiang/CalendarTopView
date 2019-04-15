@@ -13,32 +13,32 @@
 /**
  滚动视图
  */
-@property(strong,nonatomic)UIScrollView *scrollView;
+@property(strong, nonatomic) UIScrollView *scrollView;
 
 /**
  滚动下划线
  */
-@property(strong,nonatomic)UIView *line;
+@property(strong, nonatomic) UIView *line;
 
 /**
  所有的Button集合
  */
-@property(nonatomic,strong)NSMutableArray <UIButton *>*items;
+@property(nonatomic, strong) NSMutableArray <UIButton *>*items;
 
 /**
  所有的Button的宽度集合
  */
-@property(nonatomic,copy)NSArray *itemsWidth;
+@property(nonatomic, copy) NSArray *itemsWidth;
 
 /**
  被选中前面的宽度合（用于计算是否进行超过一屏，没有一屏则进行平分）
  */
-@property(nonatomic,assign)CGFloat selectedTitlesWidth;
+@property(nonatomic, assign) CGFloat selectedTitlesWidth;
 
 /**
  滚动视图的宽
  */
-@property(nonatomic,assign)CGFloat navigationTabBarWidth;
+@property(nonatomic, assign) CGFloat navigationTabBarWidth;
 
 @end
 
@@ -80,7 +80,10 @@
     
     //初始化滚动
     if (!self.scrollView) {
-        self.scrollView = [[UIScrollView alloc]initWithFrame:scrollViewRect];
+        self.scrollView = [[UIScrollView alloc] initWithFrame:scrollViewRect];
+        if (@available(iOS 11.0, *)) {
+            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
         self.scrollView.backgroundColor = self.backgroundColor;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
@@ -231,7 +234,7 @@
 
  @param index 下标
  */
--(void)curSelectedIndex:(NSInteger)index {
+- (void)curSelectedIndex:(NSInteger)index {
     self.currentIndex = index;
     if ([self.delegate respondsToSelector:@selector(calendarTitleView:didSelectedIndex:)]) {
         [self.delegate calendarTitleView:self didSelectedIndex:index];
