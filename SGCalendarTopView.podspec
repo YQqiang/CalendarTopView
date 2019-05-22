@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                   select day month year total date
                    DESC
 
-  s.homepage     = "http://app.sungrow.cn:3000/yuqiang/SGCalendarTopView"
+  s.homepage     = "http://app.sungrow.cn:3000/iOS/SGCalendarTopView"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "yuqiang" => "1054572107@qq.com" }
+  s.author             = { "sungrow" => "sungrow@sungrow.com" }
   # Or just: s.author    = "yuqiang"
   # s.authors            = { "yuqiang" => "1054572107@qq.com" }
   # s.social_media_url   = "http://twitter.com/yuqiang"
@@ -80,7 +80,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "http://app.sungrow.cn:3000/yuqiang/SGCalendarTopView.git", :tag => "#{s.version}" }
+  s.source       = { :git => "http://app.sungrow.cn:3000/iOS/SGCalendarTopView.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
