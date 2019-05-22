@@ -155,29 +155,19 @@ static const CGFloat DateControlViewHeight_ = 36;
  判断切换日期按钮的可用状态
  */
 - (void)changeDateButtonEable {
-    NSDateFormatter *fmt = self.dateControlView.dateFormatter;
-    fmt.dateFormat = @"dd";
-    NSString *selectDay = [fmt stringFromDate:self.dateControlView.selectDate];
-    NSString *maxDay = [fmt stringFromDate:self.dateControlView.maxDate];
-    NSString *minDay = [fmt stringFromDate:self.dateControlView.minDate];
-    fmt.dateFormat = @"MM";
-    NSString *selectMonth = [fmt stringFromDate:self.dateControlView.selectDate];
-    NSString *maxMonth = [fmt stringFromDate:self.dateControlView.maxDate];
-    NSString *minMonth = [fmt stringFromDate:self.dateControlView.minDate];
-    fmt.dateFormat = @"yyyy";
-    NSString *selectYear = [fmt stringFromDate:self.dateControlView.selectDate];
-    NSString *maxYear = [fmt stringFromDate:self.dateControlView.maxDate];
-    NSString *minYear = [fmt stringFromDate:self.dateControlView.minDate];
-    
+    NSCalendar *calendar = [NSCalendar sharedCalendar];
+    NSDateComponents *selectComp = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.dateControlView.selectDate];
+    NSDateComponents *maxComp = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.dateControlView.maxDate];
+    NSDateComponents *minComp = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.dateControlView.minDate];
     if (self.selectIndex == 0) {
-        self.dateControlView.nextButton.hidden = !(([maxYear floatValue] > [selectYear floatValue]) || ([maxYear floatValue] >= [selectYear floatValue] && [maxMonth floatValue] > [selectMonth floatValue]) || ([maxYear floatValue] >= [selectYear floatValue] && [maxMonth floatValue] >= [selectMonth floatValue] && [maxDay floatValue] > [selectDay floatValue]));
-        self.dateControlView.previousButton.hidden = !(([selectYear floatValue] > [minYear floatValue]) || ([selectYear floatValue] >= [minYear floatValue] && [selectMonth floatValue] > [minMonth floatValue])|| ([selectYear floatValue] >= [minYear floatValue] && [selectMonth floatValue] >= [minMonth floatValue] && [selectDay floatValue] > [minDay floatValue]));
+        self.dateControlView.nextButton.hidden = !((maxComp.year > selectComp.year) || (maxComp.year >= selectComp.year && maxComp.month > selectComp.month) || (maxComp.year >= selectComp.year && maxComp.month >= selectComp.month && maxComp.day > selectComp.day));
+        self.dateControlView.previousButton.hidden = !((selectComp.year > minComp.year) || (selectComp.year >= minComp.year && selectComp.month > minComp.month)|| (selectComp.year >= minComp.year && selectComp.month >= minComp.month && selectComp.day > minComp.day));
     }else if (self.selectIndex == 1) {
-        self.dateControlView.nextButton.hidden = !(([maxYear floatValue] > [selectYear floatValue]) || ([maxYear floatValue] >= [selectYear floatValue] && [maxMonth floatValue] > [selectMonth floatValue]));
-        self.dateControlView.previousButton.hidden = !(([selectYear floatValue] > [minYear floatValue]) || ([selectYear floatValue] >= [minYear floatValue] && [selectMonth floatValue] > [minMonth floatValue] ));
+        self.dateControlView.nextButton.hidden = !((maxComp.year > selectComp.year) || (maxComp.year >= selectComp.year && maxComp.month > selectComp.month));
+        self.dateControlView.previousButton.hidden = !((selectComp.year > minComp.year) || (selectComp.year >= minComp.year && selectComp.month > minComp.month));
     }else if (self.selectIndex == 2) {
-        self.dateControlView.nextButton.hidden = !([maxYear floatValue] > [selectYear floatValue]);
-        self.dateControlView.previousButton.hidden = !([selectYear floatValue] > [minYear floatValue]);
+        self.dateControlView.nextButton.hidden = !(maxComp.year > selectComp.year);
+        self.dateControlView.previousButton.hidden = !(selectComp.year > minComp.year);
     }
 }
 
@@ -198,19 +188,17 @@ static const CGFloat DateControlViewHeight_ = 36;
 }
 
 - (void)updateDateButtonTitle {
-    NSDateFormatter *dateFormatter = self.dateControlView.dateFormatter;
+    NSCalendar *calendar = [NSCalendar sharedCalendar];
+    NSDateComponents *comp = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.dateControlView.selectDate];
+    NSString *value = @"";
     if (self.dateControlView.datePicker.datePickerMode == HooDatePickerModeDate) {
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        value = [NSString stringWithFormat:@"%04zd-%02zd-%02zd", comp.year, comp.month, comp.day];
     } else if (self.dateControlView.datePicker.datePickerMode == HooDatePickerModeTime) {
-        [dateFormatter setDateFormat:@"HH:mm:ss"];
     } else if (self.dateControlView.datePicker.datePickerMode == HooDatePickerModeYearAndMonth){
-        [dateFormatter setDateFormat:@"yyyy-MM"];
+        value = [NSString stringWithFormat:@"%04zd-%02zd", comp.year, comp.month];
     } else if (self.dateControlView.datePicker.datePickerMode == HooDatePickerModeYear){
-        [dateFormatter setDateFormat:@"yyyy"];
-    } else {
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        value = [NSString stringWithFormat:@"%04zd", comp.year];
     }
-    NSString *value = [dateFormatter stringFromDate:self.dateControlView.selectDate];
     [self.dateControlView.dateButton setTitle:value forState:UIControlStateNormal];
     if (self.dateDidChange) {
         self.dateDidChange(self.selectIndex, self.dateControlView.selectDate, value);
