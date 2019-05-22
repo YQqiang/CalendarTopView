@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HooDatePicker.h"
+#import <PGDatePicker/PGDatePicker.h>
+#import <PGDatePicker/PGDatePickManager.h>
 @class SGCalendarControlView;
 
 @protocol SGCalendarControlViewDelegate <NSObject>
@@ -19,6 +20,11 @@
 @end
 
 @interface SGCalendarControlView : UIView
+
+/**
+ 弹出的日期选择控件的格式
+ */
+@property (nonatomic, assign) PGDatePickerMode datePickerMode;
 
 /**
  选中的日期
@@ -40,23 +46,16 @@
  */
 @property (nonatomic, weak) id <SGCalendarControlViewDelegate> controlDelegate;
 
+/**
+ 自定义日期选择控件的样式
+ */
+@property (nonatomic, copy) void (^configDatePick)(PGDatePickManager *datePickManager);
+
 #pragma mark - readonly
 @property (nonatomic, strong, readonly) UIButton *previousButton;
 
 @property (nonatomic, strong, readonly) UIButton *dateButton;
 
 @property (nonatomic, strong, readonly) UIButton *nextButton;
-
-@property (nonatomic, strong, readonly) HooDatePicker *datePicker;
-
-@property(nonatomic,strong, readonly) NSLocale *locale;
-
-@property (nonatomic, strong, readonly) NSTimeZone *timeZone;
-
-@property (nonatomic, strong, readonly) NSDateFormatter *dateFormatter;
-
-@property (nonatomic, strong, readonly) UIButton *datePickerCancelButton;
-
-@property (nonatomic, strong, readonly) UIButton *datePickerConfirmButton;
 
 @end

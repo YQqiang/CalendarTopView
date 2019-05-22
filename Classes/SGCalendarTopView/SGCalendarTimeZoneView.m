@@ -44,7 +44,7 @@
     [[NSUserDefaults standardUserDefaults] setValue:@"20170112" forKey:@"min_date"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     self.currentTimeZone = timeZone;
-    NSDateFormatter *dateFormatter = self.dateControlView.dateFormatter;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat: @"yyyy-MM-dd"];
     NSDate *max_date = [NSDate date];
     // TODO: 如果和当前时区和系统时区不一致,则默认加一天

@@ -26,8 +26,9 @@
     SGCalendarTimeZoneView *calendarView = [[SGCalendarTimeZoneView alloc] initWithCalendarStartType:CalendarStartDay selectIndex:0];
     calendarView.titleView.selectedColor = [UIColor redColor];
     calendarView.titleView.lineColor = [UIColor redColor];
-    [calendarView.dateControlView.datePickerCancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [calendarView.dateControlView.datePickerConfirmButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [calendarView.dateControlView setConfigDatePick:^(PGDatePickManager *datePickManager) {
+        datePickManager.cancelButtonTextColor = UIColor.redColor;
+    }];
     [self.view addSubview:calendarView];
     calendarView.translatesAutoresizingMaskIntoConstraints = NO;
     if (@available(iOS 11.0, *)) {

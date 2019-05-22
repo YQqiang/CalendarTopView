@@ -7,8 +7,10 @@
 //
 
 #import "SGCalendarControlView.h"
+#import <SGSinglePickerController/SGSinglePickerController-Swift.h>
+#import <SGTheme/SGTheme.h>
 
-@interface SGCalendarControlView ()<HooDatePickerDelegate>
+@interface SGCalendarControlView ()
 
 /**
  向前
@@ -24,11 +26,6 @@
  向后
  */
 @property (nonatomic, strong) UIButton *nextButton;
-
-/**
- 日期选择
- */
-@property (nonatomic, strong) HooDatePicker *datePicker;
 
 @end
 
@@ -63,18 +60,6 @@
     return _nextButton;
 }
 
-- (HooDatePicker *)datePicker {
-    if (!_datePicker) {
-        _datePicker = [[HooDatePicker alloc] initWithSuperView:[UIApplication sharedApplication].keyWindow];
-        _datePicker.timeZone = self.timeZone;
-        _datePicker.calendar.timeZone = self.timeZone;
-        _datePicker.highlightColor = [UIColor lightGrayColor];
-        _datePicker.delegate = self;
-        [_datePicker setDate:_selectDate animated:NO];
-    }
-    return _datePicker;
-}
-
 #pragma mark - init
 
 - (instancetype)init {
@@ -87,11 +72,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self createView];
-}
-
-- (void)dealloc {
-    [self.datePicker removeFromSuperview];
-    self.datePicker = nil;
 }
 
 #pragma mark - view
@@ -140,107 +120,7 @@
 }
 
 - (void)dateButtonAction:(UIButton *)sender {
-    [self.datePicker setDate:self.selectDate animated:NO];
-    [self.datePicker show];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (self.window) {
-        BOOL isShow = self.datePicker.isOpen;
-        [self.datePicker reLayoutSubviews];
-        if (isShow) {
-            [self.datePicker show];
-        }
-    }
-}
-
-#pragma mark - set
-- (void)setMaxDate:(NSDate *)maxDate {
-    _maxDate = maxDate;
-    self.datePicker.maximumDate = maxDate;
-}
-
-- (void)setMinDate:(NSDate *)minDate {
-    _minDate = minDate;
-    self.datePicker.minimumDate = minDate;
-}
-
-#pragma mark - get
-- (NSTimeZone *)timeZone {
-    return [NSTimeZone systemTimeZone];;
-}
-
-- (NSLocale *)locale {
-    return [NSLocale currentLocale];
-}
-
-- (NSDateFormatter *)dateFormatter {
-    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.timeZone = self.timeZone;
-    fmt.locale = self.locale;
-    fmt.calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-    return fmt;
-}
-
-/**
- 获取 datePicker 工具条的取消按钮
- 
- @return 取消按钮
- */
-- (UIButton *)datePickerCancelButton {
-    UIStackView *tooBar = [self datePickerHeaderView];
-    for (UIView *subV in tooBar.arrangedSubviews) {
-        if ([subV isKindOfClass:[UIButton class]]) {
-            return (UIButton *)subV;
-        }
-    }
-    return nil;
-}
-
-/**
- 获取 datePicker 工具条的确认按钮
-
- @return 确认按钮
- */
-- (UIButton *)datePickerConfirmButton {
-    UIStackView *tooBar = [self datePickerHeaderView];
-    for (UIView *subV in tooBar.arrangedSubviews.reverseObjectEnumerator) {
-        if ([subV isKindOfClass:[UIButton class]]) {
-            return (UIButton *)subV;
-        }
-    }
-    return nil;
-}
-
-/**
- 获取 datePicker 的工具条
-
- @return 工具条
- */
-- (UIStackView *)datePickerHeaderView {
-    if ([self.datePicker respondsToSelector:NSSelectorFromString(@"headerView")]) {
-        UIView *tooBar = [self.datePicker valueForKey:@"headerView"];
-        for (UIView *subv in tooBar.subviews) {
-            if ([subv isKindOfClass:[UIStackView class]]) {
-                return (UIStackView *)subv;
-            }
-        }
-    }
-    return nil;
-}
-
-#pragma mark - HooDatePickerDelegate
-- (void)datePicker:(HooDatePicker *)datePicker didCancel:(UIButton *)sender {
-    
-}
-
-- (void)datePicker:(HooDatePicker *)datePicker dateDidChange:(NSDate *)date {
-    
-}
-
-- (void)datePicker:(HooDatePicker *)dataPicker didSelectedDate:(NSDate *)date {
-    self.selectDate = date;
+    [self showDatePickView];
 }
 
 - (void)setSelectDate:(NSDate *)selectDate {
@@ -250,6 +130,41 @@
             [self.controlDelegate calendarControlView:self didChangeSelectDate:self.selectDate];
         }
     }
+}
+
+- (void)showDatePickView {
+    [self.recentlyViewController.view endEditing:YES];
+    PGDatePickManager *datePickMangaer = [[PGDatePickManager alloc] init];
+    datePickMangaer.headerViewBackgroundColor = UIColor.whiteColor;
+    datePickMangaer.cancelButtonText = NSLocalizedString(@"I18N_COMMON_CANCLE", @"取消");
+    datePickMangaer.confirmButtonText = NSLocalizedString(@"I18N_COMMON_DETERMINE", @"确定");
+    datePickMangaer.cancelButtonTextColor = SGTheme.negative_color.color;
+    datePickMangaer.confirmButtonTextColor = SGTheme.brand_color.color;
+    PGDatePicker *datePicker = datePickMangaer.datePicker;
+    datePicker.datePickerMode = self.datePickerMode;
+    datePicker.showUnit = PGShowUnitTypeNone;
+    datePicker.isHiddenMiddleText = NO;
+    datePicker.middleTextColor = [UIColor clearColor];
+    datePicker.textColorOfOtherRow = SGTheme.disable_color.color;
+    datePicker.lineBackgroundColor = SGTheme.brand_color.color;
+    datePicker.textColorOfSelectedRow = SGTheme.brand_color.color;
+    [datePicker setMinimumDate:self.minDate];
+    [datePicker setMaximumDate:self.maxDate];
+    [datePicker setDate:self.selectDate];
+    
+    if (self.configDatePick) {
+        self.configDatePick(datePickMangaer);
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [datePicker setSelectedDate:^(NSDateComponents *dateComponents) {
+        NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+        fmt.dateFormat = @"yyyyMMddHHmmss";
+        NSString *dateStr = [NSString stringWithFormat:@"%zd%02zd%02zd%02zd%02zd%02zd", dateComponents.year, dateComponents.month, dateComponents.day, dateComponents.hour, dateComponents.minute, dateComponents.second];
+        NSDate *date = [fmt dateFromString:dateStr];
+        weakSelf.selectDate = date;
+    }];
+    [self.recentlyViewController presentViewController:datePickMangaer animated:YES completion:nil];
 }
 
 @end

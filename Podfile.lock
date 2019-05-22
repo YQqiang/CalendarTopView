@@ -1,0 +1,40 @@
+PODS:
+  - PGDatePicker (2.6.7):
+    - PGPickerView
+  - PGPickerView (1.3.8)
+  - SGCalendarTopView (0.0.7):
+    - PGDatePicker (= 2.6.7)
+    - SGSinglePickerController
+    - SGTheme
+  - SGSinglePickerController (0.0.4)
+  - SGTheme (0.1.8):
+    - SwiftTheme (= 0.4.4)
+  - SwiftTheme (0.4.4)
+
+DEPENDENCIES:
+  - SGCalendarTopView (from `./`)
+
+SPEC REPOS:
+  http://app.sungrow.cn:3000/iOS/SGSpecs.git:
+    - SGSinglePickerController
+    - SGTheme
+  https://github.com/cocoapods/specs.git:
+    - PGDatePicker
+    - PGPickerView
+    - SwiftTheme
+
+EXTERNAL SOURCES:
+  SGCalendarTopView:
+    :path: "./"
+
+SPEC CHECKSUMS:
+  PGDatePicker: 2800906f7e3b66bb324aeb2a754065c563651e22
+  PGPickerView: 037acfb132a4c8054fb43aaa59a5ff50c7f747f5
+  SGCalendarTopView: fe5a347d83e9b12ee9942a9c3a8e8593403844f5
+  SGSinglePickerController: 8ae1e5041e392864925bf03902429c8e8d04e7ec
+  SGTheme: c99f0358d238d0adc9e8bf8a2b9942d765048077
+  SwiftTheme: a381f983da92153908b7a9eeb961b18b6d94d614
+
+PODFILE CHECKSUM: 5a79f63aa3feee0d49e2088a685a439f8574b49e
+
+COCOAPODS: 1.7.0.beta.3

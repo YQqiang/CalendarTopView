@@ -155,7 +155,7 @@ static const CGFloat DateControlViewHeight_ = 36;
  判断切换日期按钮的可用状态
  */
 - (void)changeDateButtonEable {
-    NSCalendar *calendar = [NSCalendar sharedCalendar];
+    NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *selectComp = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.dateControlView.selectDate];
     NSDateComponents *maxComp = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.dateControlView.maxDate];
     NSDateComponents *minComp = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.dateControlView.minDate];
@@ -174,13 +174,13 @@ static const CGFloat DateControlViewHeight_ = 36;
 - (void)updateDatePickerMode {
     switch (self.selectIndex) {
         case 0:
-            self.dateControlView.datePicker.datePickerMode = HooDatePickerModeDate;
+            self.dateControlView.datePickerMode = PGDatePickerModeDate;
             break;
         case 1:
-            self.dateControlView.datePicker.datePickerMode = HooDatePickerModeYearAndMonth;
+            self.dateControlView.datePickerMode = PGDatePickerModeYearAndMonth;
             break;
         case 2:
-            self.dateControlView.datePicker.datePickerMode = HooDatePickerModeYear;
+            self.dateControlView.datePickerMode = PGDatePickerModeYear;
             break;
         default:
             break;
@@ -188,15 +188,14 @@ static const CGFloat DateControlViewHeight_ = 36;
 }
 
 - (void)updateDateButtonTitle {
-    NSCalendar *calendar = [NSCalendar sharedCalendar];
+    NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *comp = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:self.dateControlView.selectDate];
     NSString *value = @"";
-    if (self.dateControlView.datePicker.datePickerMode == HooDatePickerModeDate) {
+    if (self.dateControlView.datePickerMode == PGDatePickerModeDate) {
         value = [NSString stringWithFormat:@"%04zd-%02zd-%02zd", comp.year, comp.month, comp.day];
-    } else if (self.dateControlView.datePicker.datePickerMode == HooDatePickerModeTime) {
-    } else if (self.dateControlView.datePicker.datePickerMode == HooDatePickerModeYearAndMonth){
+    } else if (self.dateControlView.datePickerMode == PGDatePickerModeYearAndMonth){
         value = [NSString stringWithFormat:@"%04zd-%02zd", comp.year, comp.month];
-    } else if (self.dateControlView.datePicker.datePickerMode == HooDatePickerModeYear){
+    } else if (self.dateControlView.datePickerMode == PGDatePickerModeYear){
         value = [NSString stringWithFormat:@"%04zd", comp.year];
     }
     [self.dateControlView.dateButton setTitle:value forState:UIControlStateNormal];
