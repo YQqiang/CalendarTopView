@@ -138,9 +138,19 @@ static const CGFloat DateControlViewHeight_ = 36;
 #pragma mark - action
 
 - (void)updateMaxDate:(NSDate *)maxDate minDate:(NSDate *)minDate {
+    [self updateMaxDate:maxDate minDate:minDate animated:NO];
+}
+
+- (void)updateMaxDate:(NSDate *)maxDate minDate:(NSDate *)minDate animated:(BOOL)animated  {
+    // 最大日期的边界处理
     NSComparisonResult comparisonResult = [self.dateControlView.selectDate compare:maxDate];
     if (comparisonResult == NSOrderedDescending) {
         self.dateControlView.selectDate = maxDate;
+    }
+    // 最小日期的边界处理
+    comparisonResult = [self.dateControlView.selectDate compare:minDate];
+    if (comparisonResult == NSOrderedAscending) {
+        self.dateControlView.selectDate = minDate;
     }
     self.dateControlView.maxDate = maxDate;
     self.dateControlView.minDate = minDate;
@@ -148,7 +158,7 @@ static const CGFloat DateControlViewHeight_ = 36;
     [self updateDatePickerMode];
     [self changeDateButtonEable];
     [self updateDateButtonTitle];
-    [self updateControlViewHeight:NO];
+    [self updateControlViewHeight:animated];
 }
 
 /**
@@ -254,10 +264,7 @@ static const CGFloat DateControlViewHeight_ = 36;
 #pragma mark - SGCalendarTitleViewDelegate
 - (void)calendarTitleView:(SGCalendarTitleView *)titleView didSelectedIndex:(NSInteger)index {
     self.selectIndex = index + self.calendarStartType;
-    [self updateDatePickerMode];
-    [self changeDateButtonEable];
-    [self updateDateButtonTitle];
-    [self updateControlViewHeight:YES];
+    [self updateMaxDate:self.dateControlView.maxDate minDate:self.dateControlView.minDate animated:YES];
 }
 
 #pragma mark - SGCalendarControlViewDelegate
