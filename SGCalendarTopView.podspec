@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SGCalendarTopView"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "select day month year total date "
 
   # This description is used to generate tags and improve search results.
@@ -138,5 +138,6 @@ Pod::Spec.new do |s|
   s.dependency 'PGDatePicker', '= 2.6.7'
   s.dependency 'SGSinglePickerController'
   s.dependency 'SGTheme'
+  s.dependency 'SGUpper'
 
 end

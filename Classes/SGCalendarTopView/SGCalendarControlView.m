@@ -9,6 +9,7 @@
 #import "SGCalendarControlView.h"
 #import <SGSinglePickerController/SGSinglePickerController-Swift.h>
 #import <SGTheme/SGTheme.h>
+#import <SGUpper/SGUpper-Swift.h>
 
 @interface SGCalendarControlView ()
 
@@ -136,8 +137,8 @@
     [self.recentlyViewController.view endEditing:YES];
     PGDatePickManager *datePickMangaer = [[PGDatePickManager alloc] init];
     datePickMangaer.headerViewBackgroundColor = UIColor.whiteColor;
-    datePickMangaer.cancelButtonText = NSLocalizedString(@"I18N_COMMON_CANCLE", @"取消");
-    datePickMangaer.confirmButtonText = NSLocalizedString(@"I18N_COMMON_DETERMINE", @"确定");
+    datePickMangaer.cancelButtonText = NSLocalizedString(@"I18N_COMMON_CANCLE", @"取消").sgUppercase;
+    datePickMangaer.confirmButtonText = NSLocalizedString(@"I18N_COMMON_DETERMINE", @"确定").sgUppercase;
     datePickMangaer.cancelButtonTextColor = SGTheme.negative_color.color;
     datePickMangaer.confirmButtonTextColor = SGTheme.brand_color.color;
     PGDatePicker *datePicker = datePickMangaer.datePicker;
