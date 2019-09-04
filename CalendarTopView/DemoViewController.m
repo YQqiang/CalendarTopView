@@ -29,6 +29,9 @@
     [calendarView.dateControlView setConfigDatePick:^(PGDatePickManager *datePickManager) {
         datePickManager.cancelButtonTextColor = UIColor.redColor;
     }];
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateFormat = @"yyyy-MM-dd";
+    [calendarView updateSelectDateRangeWithTimeZone:@"GMT+9" minDate:[fmt dateFromString:@"2016-01-01"]];
     [self.view addSubview:calendarView];
     calendarView.translatesAutoresizingMaskIntoConstraints = NO;
     if (@available(iOS 11.0, *)) {

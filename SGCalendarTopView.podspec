@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SGCalendarTopView"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "select day month year total date "
 
   # This description is used to generate tags and improve search results.
@@ -139,5 +139,6 @@ Pod::Spec.new do |s|
   s.dependency 'SGSinglePickerController'
   s.dependency 'SGTheme'
   s.dependency 'SGUpper'
+  s.dependency 'SGCategoriesObjC'
 
 end
