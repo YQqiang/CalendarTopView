@@ -22,12 +22,12 @@
 
 - (void)createView {
     [super createView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelectDateRange) name:NSSystemTimeZoneDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelectDateRange) name:NSSystemTimeZoneDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelectDateRange) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSystemTimeZoneDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSystemTimeZoneDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
