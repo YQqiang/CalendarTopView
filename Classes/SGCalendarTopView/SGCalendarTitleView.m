@@ -153,6 +153,9 @@
  @param currentIndex 下标
  */
 - (void)setCurrentIndex:(NSInteger)currentIndex {
+    if (_currentIndex == currentIndex) {
+        return;
+    }
     if (_items.count > 0) {
         _currentIndex = currentIndex;
         UIButton *button = nil;
