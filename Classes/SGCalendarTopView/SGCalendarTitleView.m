@@ -189,10 +189,12 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _navigationTabBarWidth = self.bounds.size.width;
-    self.scrollView.frame = self.bounds;
-    self.titleArray = self.titleArray;
-    self.currentIndex = self.currentIndex;
+    if (_navigationTabBarWidth != self.bounds.size.width) {
+        _navigationTabBarWidth = self.bounds.size.width;
+        self.scrollView.frame = self.bounds;
+        self.titleArray = self.titleArray;
+        self.currentIndex = self.currentIndex;
+    }
 }
 
 /**
