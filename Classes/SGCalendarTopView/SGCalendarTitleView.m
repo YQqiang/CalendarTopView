@@ -237,7 +237,11 @@
  @param index 下标
  */
 - (void)curSelectedIndex:(NSInteger)index {
-    if (self.currentIndex != index) {
+    BOOL canExecute = self.currentIndex != index;
+    if (self.forceSelectedIndex) {
+        canExecute = YES;
+    }
+    if (canExecute) {
         self.currentIndex = index;
         if ([self.delegate respondsToSelector:@selector(calendarTitleView:didSelectedIndex:)]) {
             [self.delegate calendarTitleView:self didSelectedIndex:index];

@@ -24,6 +24,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     SGCalendarTimeZoneView *calendarView = [[SGCalendarTimeZoneView alloc] initWithCalendarStartType:CalendarStartDay selectIndex:0];
+    calendarView.titleView.forceSelectedIndex = YES;
     calendarView.titleView.selectedColor = [UIColor redColor];
     calendarView.titleView.lineColor = [UIColor redColor];
     [calendarView.dateControlView setConfigDatePick:^(PGDatePickManager *datePickManager) {

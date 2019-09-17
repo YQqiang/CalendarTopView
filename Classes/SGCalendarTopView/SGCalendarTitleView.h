@@ -50,6 +50,13 @@
 @property (nonatomic, assign) NSInteger currentIndex;
 
 /**
+ 当值为 true 时: 点击相同的index, 会调用代理 didSelectedIndex:
+ 当值为 false 时: 点击相同的index, 不会调用代理
+ 默认值为 false
+ */
+@property (nonatomic, assign) BOOL forceSelectedIndex;
+
+/**
  修改选中的下标
 
  @param index 下标
