@@ -153,9 +153,6 @@
  @param currentIndex 下标
  */
 - (void)setCurrentIndex:(NSInteger)currentIndex {
-    if (_currentIndex == currentIndex) {
-        return;
-    }
     if (_items.count > 0) {
         _currentIndex = currentIndex;
         UIButton *button = nil;
@@ -240,9 +237,11 @@
  @param index 下标
  */
 - (void)curSelectedIndex:(NSInteger)index {
-    self.currentIndex = index;
-    if ([self.delegate respondsToSelector:@selector(calendarTitleView:didSelectedIndex:)]) {
-        [self.delegate calendarTitleView:self didSelectedIndex:index];
+    if (self.currentIndex != index) {
+        self.currentIndex = index;
+        if ([self.delegate respondsToSelector:@selector(calendarTitleView:didSelectedIndex:)]) {
+            [self.delegate calendarTitleView:self didSelectedIndex:index];
+        }
     }
     
     //修改选中跟没选中的Button字体颜色
